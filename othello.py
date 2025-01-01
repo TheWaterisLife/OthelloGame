@@ -1,9 +1,4 @@
-'''
-    Siyan
-    CS5001
-    Fall 2018
-    November 28, 2018
-'''
+
 
 import score, turtle, random
 from board import Board

@@ -16,11 +16,11 @@ This project was developed for the **COEN 244** class.
 
 | Main Menu | Mode Selection |
 |:---:|:---:|
-| ![Main Menu](screenshots/main_menu.png) | ![Mode Select](screenshots/mode_select.png) |
+| ![Main Menu](screenshots/Screenshot%202025-12-18%20175121.png) | ![Mode Select](screenshots/Screenshot%202025-12-18%20175222.png) |
 
 | Color Selection | Gameplay |
 |:---:|:---:|
-| ![Color Select](screenshots/color_select.png) | ![Gameplay](screenshots/gameplay.png) |
+| ![Color Select](screenshots/Screenshot%202025-12-18%20175234.png) | ![Gameplay](screenshots/Screenshot%202025-12-18%20175242.png) |
 
 ## Game Rules
 

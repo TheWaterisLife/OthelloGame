@@ -43,6 +43,8 @@ class Board:
         self.tile_size = TILE
         self.tile_colors = TILE_COLORS
         self.move = ()
+        self.info_turtle = None
+        self.highlight_turtle = None
 
     def draw_board(self):
         ''' Method: draw_board
@@ -52,9 +54,10 @@ class Board:
             Does: Draws an nxn board. Color of the board and lines are set 
                   to self.board_color and self.line_color respectively.
         '''
-        turtle.setup(self.n * self.square_size + self.square_size, 
-                    self.n * self.square_size + self.square_size)
-        turtle.screensize(self.n * self.square_size, self.n * self.square_size)
+        # Increase height for UI area
+        turtle.setup(self.n * self.square_size + self.square_size + 100, 
+                    self.n * self.square_size + self.square_size + 100)
+        turtle.screensize(self.n * self.square_size, self.n * self.square_size + 100)
         turtle.bgcolor('white')
 
         # Create the turtle to draw the board
@@ -88,6 +91,18 @@ class Board:
         for i in range(self.n + 1):
             othello.setposition(self.square_size * i + corner, corner)
             self.draw_lines(othello)
+
+        # Initialize UI turtles
+        self.info_turtle = turtle.Turtle(visible=False)
+        self.info_turtle.penup()
+        self.info_turtle.hideturtle()
+        self.info_turtle.speed(0)
+        
+        self.highlight_turtle = turtle.Turtle(visible=False)
+        self.highlight_turtle.penup()
+        self.highlight_turtle.hideturtle()
+        self.highlight_turtle.speed(0)
+        self.highlight_turtle.color('blue') # Highlight color
 
     def draw_lines(self, turt):
         ''' Method: draw_lines
@@ -233,6 +248,66 @@ class Board:
         tile.pendown()
         tile.circle(r)
         tile.end_fill()
+
+    def draw_info(self, current_player, num_tiles):
+        ''' Method: draw_info
+            Parameters: self, current_player (int), num_tiles (list)
+            Returns: nothing
+            Does: Displays current player and score information.
+        '''
+        if not self.info_turtle:
+            return
+            
+        self.info_turtle.clear()
+        
+        # Position for text (above the board)
+        y_pos = self.n * self.square_size / 2 + 20
+        
+        self.info_turtle.setposition(0, y_pos)
+        turn_text = f"Turn: {'Black' if current_player == 0 else 'White'}"
+        self.info_turtle.write(turn_text, align="center", font=("Arial", 16, "bold"))
+        
+        self.info_turtle.setposition(0, y_pos + 25)
+        score_text = f"Black: {num_tiles[0]}  |  White: {num_tiles[1]}"
+        self.info_turtle.write(score_text, align="center", font=("Arial", 14, "normal"))
+
+    def highlight_legal_moves(self, moves):
+        ''' Method: highlight_legal_moves
+            Parameters: self, moves (list of tuples)
+            Returns: nothing
+            Does: Draws a small marker on legal moves.
+        '''
+        if not self.highlight_turtle:
+            return
+            
+        self.highlight_turtle.clear()
+        
+        for move in moves:
+            pos = self.get_tile_start_pos(move)
+            if pos:
+                coord = pos[0]
+                r = pos[1]
+                
+                # Calculate center of the square
+                # coord is the start point for circle(), which draws from edge
+                # If r is positive, circle draws to left?
+                # circle(radius) draws a circle with radius r. 
+                # The center is radius units left of the turtle; extent is an angle...
+                # Actually, let's just go to the center of the square.
+                
+                row, col = move
+                
+                # Center x
+                center_x = (col - self.n / 2 + 0.5) * self.square_size
+                # Center y
+                center_y = (self.n / 2 - row - 0.5) * self.square_size
+                
+                self.highlight_turtle.setposition(center_x, center_y - 5) # Adjust for dot size
+                self.highlight_turtle.dot(10, "blue")
+
+    def clear_highlights(self):
+        if self.highlight_turtle:
+            self.highlight_turtle.clear()
 
     def __str__(self):
         ''' 

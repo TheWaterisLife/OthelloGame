@@ -12,6 +12,30 @@ This project was developed for the **COEN 244** class.
 *   **Language Switch**: The game logic was originally designed in **C++**, but has been ported to **Python** for greater convenience and portability.
 *   **UI Upgrade**: The user interface has been completely overhauled. It now features a fully graphical interface (GUI) built with Python's Turtle library, replacing the standard console output with an interactive window.
 
+## Gameplay Screenshots
+
+| Main Menu | Mode Selection |
+|:---:|:---:|
+| ![Main Menu](screenshots/main_menu.png) | ![Mode Select](screenshots/mode_select.png) |
+
+| Color Selection | Gameplay |
+|:---:|:---:|
+| ![Color Select](screenshots/color_select.png) | ![Gameplay](screenshots/gameplay.png) |
+
+## Game Rules
+
+The game is played on an 8x8 board with disc-like pieces that have a black side and a white side.
+
+1.  **Setup**: The game begins with four discs placed in a square in the middle of the grid, two facing white side up, two pieces with the dark side up, with same-colored discs on a diagonal with each other.
+2.  **Objective**: The goal is to have the majority of discs on the board showing your color when the game ends.
+3.  **Turns**: Black always moves first. Players take turns placing a disc of their color on the board.
+4.  **Valid Moves**:
+    *   You must place your disc in a position that "outflanks" one or more of your opponent's discs.
+    *   This means there must be a continuous straight line (horizontal, vertical, or diagonal) of the opponent's discs between the new disc you placed and another disc of your own color already on the board.
+5.  **Capturing**: When a valid move is made, all the opponent's discs lying on that straight line between the new disc and the anchoring disc are flipped to your color.
+6.  **Passing**: If a player cannot make a valid move, they must pass their turn. If they can make a move, they must.
+7.  **End Game**: The game ends when neither player can move (usually when the board is full). The player with the most discs of their color on the board wins.
+
 ## Features
 
 *   **Interactive Menu System**: A retro-style main menu with options to Play, view Settings, or Quit.
@@ -35,4 +59,3 @@ python game.py
 
 *   **Language**: Python 3
 *   **Graphics**: Turtle Graphics Module (Standard Python Library)
-
